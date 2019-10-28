@@ -199,40 +199,142 @@ const businesses = [
 
 // The map method is used for transforming items in one array to a different structure, and storing the new items in another array. Here's how you would do that for this feature. CREATES NEW ARRAY!!!!!
 
-const outEl = document.querySelector("#output")
-outEl.innerHTML += "<h1>Purchasing Agents</h1>";
+// const outEl = document.querySelector("#output")
+// outEl.innerHTML += "<h1>Purchasing Agents</h1>";
 
-/*
-    Using map(), you extract the purchasing agent object
-    from each business and store it in a new array
-*/
-const agents = businesses.map(business => {
-    return {
-    "fullName": `${business.purchasingAgent.nameFirst} ${business.purchasingAgent.nameLast}`,
-    "company": `${business.companyName}`,
-    "phoneNumber": `${business.phoneWork}`
-    }
-})
+// /*
+//     Using map(), you extract the purchasing agent object
+//     from each business and store it in a new array
+// */
+// const agents = businesses.map(business => {
+//     return {
+//     "fullName": `${business.purchasingAgent.nameFirst} ${business.purchasingAgent.nameLast}`,
+//     "company": `${business.companyName}`,
+//     "phoneNumber": `${business.phoneWork}`
+//     }
+// })
 
-console.table(agents)
+// console.table(agents)
 
-agents.forEach(agent => {
-  outEl.innerHTML += `
-    <h2>${agent.fullName}</h2>
-    <h3>${agent.company}</h3>
-    <h3>${agent.phoneNumber}</h3> 
-    `
+// agents.forEach(agent => {
+//   outEl.innerHTML += `
+//     <h2>${agent.fullName}</h2>
+//     <h3>${agent.company}</h3>
+//     <h3>${agent.phoneNumber}</h3> 
+//     `
     
 
-  outEl.innerHTML += "<hr/>";
+//   outEl.innerHTML += "<hr/>";
+// });
+
+// Lightning Exercise: Instead of just returning the purchasing agent object, return a new object that has the full name of the purchasing agent, the company name, and the phone number. The data structure is shown below. Use that new data structure to display the agent with their company and phone number +++ ANSWER ABOVE +++
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ END map() \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//
+
+// +++++ find() ARRAY METHOD +++++ //
+////////////////////////////////////
+
+// The find method iterates an array and as soon as it finds one item that passes the condition that you provide, it returns that item to you.
+
+// const candies = [
+//     {
+//         name: "Lollipop",
+//         price: 2.99
+//     },
+//     {
+//         name: "Tootsie Roll",
+//         price: 1.49
+//     },
+//     {
+//         name: "Sugar Daddy",
+//         price: 2.49
+//     }
+// ]
+
+// const firstCheapCandy = candies.find(candy => candy.price < 2.00)
+
+// console.log(firstCheapCandy) 
+// > { name: "Tootsie Roll", price: 1.49 }
+
+// const outEl = document.querySelector("#output")
+// const companySearch = document.querySelector("#companySearch")
+// companySearch.addEventListener("keypress", keyPressEvent => {
+//     if (keyPressEvent.charCode === 13) {
+//         /* WHEN  USER PRESSES ENTER, FIND MATCHING BUSINESS */
+//         const foundBusiness = businesses.find(
+//             business =>
+//                 business.companyName.toLowerCase.includes(keyPressEvent.target.value.toLowerCase())
+//         );
+
+//         outEl.innerHTML = `
+//             <h2>
+//             ${foundBusiness.companyName}
+//             </h2>
+//             <section>
+//             ${foundBusiness.addressFullStreet}
+
+//             </section>
+//             <section>
+//             ${foundBusiness.addressCity},
+//             ${foundBusiness.addressStateCode}
+//             ${foundBusiness.addressZipCode}
+//             </section>
+//         `;
+//     }
+// });
+
+// Lightning Exercise 1: Refactor your code to search for purchasing agents instead. If the search text is found in the first name of any purchasing agent, show that agent. (+++++ ANSWER BELOW +++++)
+
+const outEl = document.querySelector("#output")
+const agentSearch = document.querySelector("#companySearch")
+agentSearch.addEventListener("keypress", keyPressEvent => {
+    if (keyPressEvent.charCode === 13) {
+        /* WHEN  USER PRESSES ENTER, FIND MATCHING BUSINESS */
+        const foundAgent = businesses.find(
+            business =>
+                business.purchasingAgent.nameFirst.toLowerCase().includes(keyPressEvent.target.value.toLowerCase()) || business.purchasingAgent.nameLast.toLowerCase().includes(keyPressEvent.target.value.toLowerCase())
+        );
+
+        outEl.innerHTML = `
+            <h2>
+            ${foundAgent.purchasingAgent.nameFirst} ${foundAgent.purchasingAgent.nameLast}
+            </h2>
+            <section>
+            ${foundAgent.addressFullStreet}
+
+            </section>
+            <section>
+            ${foundAgent.addressCity},
+            ${foundAgent.addressStateCode}
+            ${foundAgent.addressZipCode}
+            </section>
+        `;
+    }
 });
 
-// Lightning Exercise: Instead of just returning the purchasing agent object, return a new object that has the full name of the purchasing agent, the company name, and the phone number. The data structure is shown below. Use that new data structure to display the agent with their company and phone number +++ ANSWER BELOW +++
+// Lightning Exercise 2: Refactor your code so that if the search text is found in the first name, or last name, of any purchasing agent, show that agent. (+++++ ANSWER ABOVE +++++)
 
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ END find() \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//
 
+// +++++ reduce() ARRAY METHOD +++++ //
+///////////////////////////////////////
 
-// {
-//     "fullName": "Kaylee Gutkowski",
-//     "company": "Highnix",
-//     "phoneNumber": "235.266.6278"
-// }
+// The reduce () method reduces the array to a single value. The reduce() method executes a provided function for each value of the array (from left-to-right). The return value of the function is stored in an accumulator (result/total). Note: reduce() does not execute the function for array elements without values.
+
+// Lightning Exercise 1: Use the reduce method on the following array to determine how much total rain fell last month.
+
+const monthlyRainfall = [23, 13, 27, 20, 20, 31, 33, 26, 19, 12, 14, 12, 10]
+
+const totalRainfall = monthlyRainfall.reduce((total, currentValue) => total += currentValue)
+
+console.log(totalRainfall)
+
+// Lightning Exercise 2: Use the reduce method on the following array to build a sentence.
+
+const words = ["The", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog"]
+
+const sentence = words.reduce((word, currentWord) => word += " " + currentWord)
+
+console.log(`${sentence}.`)
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ END reduce() \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//
