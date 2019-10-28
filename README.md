@@ -1,7 +1,7 @@
 # Array Methods
 
-forEach()
-filter()
-find()
-map()
+forEach()</br>
+filter()</br>
+find()</br>
+map()</br>
 reduce()
